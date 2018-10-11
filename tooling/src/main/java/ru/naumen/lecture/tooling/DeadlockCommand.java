@@ -6,7 +6,7 @@ public class DeadlockCommand implements IToolTesterCommand
     @Override
     public String getName()
     {
-        return "Заблокируйся!";
+        return "Сделай Deadlock!";
     }
 
     @Override
@@ -24,45 +24,18 @@ public class DeadlockCommand implements IToolTesterCommand
     @Override
     public void execute()
     {
-        try
-        {
-            Thread.sleep(50000);
-        }
-        catch (InterruptedException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        /*
-        Object obj1 = new Object();
-        Object obj2 = new Object();
-        Object obj3 = new Object();
-        
-        Thread t1 = new Thread(new SyncThread(obj1, obj2), "t1");
-        Thread t2 = new Thread(new SyncThread(obj2, obj3), "t2");
-        Thread t3 = new Thread(new SyncThread(obj3, obj1), "t3");
-        
-        t1.start();
-        try
-        {
-            Thread.sleep(5000);
-        }
-        catch (InterruptedException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        t2.start();
-        try
-        {
-            Thread.sleep(5000);
-        }
-        catch (InterruptedException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        t3.start();
-        */
+        Object lock1 = new Object();
+        Object lock2 = new Object();
+        Object lock3 = new Object();
+
+        Thread blockingThread1 = new BlockingThread("BlockingThread1", lock1, lock2);
+        Thread blockingThread2 = new BlockingThread("BlockingThread2", lock2, lock3);
+        Thread blockingThread3 = new BlockingThread("BlockingThread3", lock3, lock1);
+
+        blockingThread1.start();
+        ToolTesterUtils.doSomeWork(5);
+        blockingThread2.start();
+        ToolTesterUtils.doSomeWork(5);
+        blockingThread3.start();
     }
 }

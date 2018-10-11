@@ -4,6 +4,7 @@ public enum State
 {
     ALL_RIGHT("Спасибо, все ок!", false), 
     SAME_AS_CURRENT("Текущее состояние", false),
+    LONG_OPERATION_UNDER_LOCK("Осуществляется длительная работа под блокировкой", true),
     DEADLOCK("Похоже, все заблокировалось!", true),
     HIGH_MEMORY_CONSUPTION("Мне плохо, память заканчивается!", true), 
     HIGH_CPU_LOAD("Мне плохо, процессор сильно нагружен!", true);
