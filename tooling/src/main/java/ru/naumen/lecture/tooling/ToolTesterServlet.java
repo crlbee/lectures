@@ -18,6 +18,7 @@ public class ToolTesterServlet extends HttpServlet
 
     private final static List<IToolTesterCommand> AVAILABLE_COMMANDS = Arrays.asList(
             new HowAreYouCommand(),
+            new SomeUsefulWorkCommand(),
             new MakeAllRightCommand(),
             new LongOperationUnderLockCommand(),
             new DeadlockCommand(), 
@@ -36,7 +37,7 @@ public class ToolTesterServlet extends HttpServlet
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
 
-        //Выполнять обработку запроса под блокировкой, конечно же, не стоит. Но мы будем.
+        //FIXME: Выполнять обработку запроса под блокировкой, конечно же, не стоит. Но мы будем.
         synchronized (this)
         {
             if (cmd.isPresent() && canExecute(cmd.get().getTargetState()))
@@ -45,7 +46,7 @@ public class ToolTesterServlet extends HttpServlet
                 writeState(response);
                 cmd.get().execute();
             }
-            else
+            else if( cmd.isPresent()) 
             {
                 writeState(response);
             }
@@ -53,14 +54,32 @@ public class ToolTesterServlet extends HttpServlet
 
         final StringBuilder form = new StringBuilder();
         form.append("<form method=\"post\" action=\"/\">");
-        AVAILABLE_COMMANDS.forEach(c -> {
-            form.append("<button name=\"" + COMMAND_PRM_NAME + "\" value = \"" + c.getCode() + "\"" + 
-                    (currentState.isError() && c.getTargetState().isError() ? " disabled " : "") + ">" + 
-                        c.getName() + "</button>");
+        form.append("<h2>Штатные функции:</h2>");
+        
+        AVAILABLE_COMMANDS.stream().filter(c -> !c.getTargetState().isError() && !c.getTargetState().isService()).forEach(c -> {
+            form.append(buildButton(c, false));
+        });
+        
+        form.append("<h2>Сервисные функции:</h2>");
+        
+        AVAILABLE_COMMANDS.stream().filter( c -> c.getTargetState().isService()).forEach(c -> {
+            form.append(buildButton(c, false));
+        });
+
+        form.append("<h2 title=\"Не использовать в production!\">Недокументированные возможности:</h2>");
+        AVAILABLE_COMMANDS.stream().filter( c -> c.getTargetState().isError()).forEach(c -> {
+            form.append(buildButton(c, currentState.isError()));
         });
 
         form.append("</form>");
         response.getWriter().println(form);
+    }
+    
+    private String buildButton(IToolTesterCommand c, boolean isDisabled)
+    {
+        return "<button name=\"" + COMMAND_PRM_NAME + "\" value = \"" + c.getCode() + "\"" + 
+                (isDisabled ? " disabled " : "") + ">" + 
+                c.getName() + "</button>&nbsp;";
     }
 
     private void writeState(HttpServletResponse response) throws IOException
