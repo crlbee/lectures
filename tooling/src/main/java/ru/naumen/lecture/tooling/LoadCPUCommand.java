@@ -1,11 +1,9 @@
 package ru.naumen.lecture.tooling;
 
 import java.lang.management.ManagementFactory;
-import java.util.Set;
+import java.util.Random;
 
 import javax.management.MBeanServer;
-import javax.management.ObjectInstance;
-import javax.management.ObjectName;
 
 public class LoadCPUCommand implements IToolTesterCommand
 {
@@ -53,37 +51,19 @@ public class LoadCPUCommand implements IToolTesterCommand
     @Override
     public void execute()
     {
-        String objectName = "ru.naumen.lecture.tooling:type=SomeMBeanImpl";
-
         MBeanServer server = ManagementFactory.getPlatformMBeanServer();
         try
         {
-
-            ObjectName mbeanName = new ObjectName(objectName);
-
-            ToolTesterBean mbean = new ToolTesterBean();
-
-            server.registerMBean(mbean, mbeanName);
-
-            Set<ObjectInstance> instances;
-            instances = server.queryMBeans(new ObjectName(objectName), null);
-            ObjectInstance instance = (ObjectInstance)instances.toArray()[0];
-            System.out.println("Class Name:t" + instance.getClassName());
-            System.out.println("Object Name:t" + instance.getObjectName());
-
-//            long summ = 0;
-//            Random random = new Random();
-//            while (true)
-//            {
-//                summ += random.nextLong();
-//            }
-            //System.out.println(Long.toString(summ));
-
-
+            long summ = 0;
+            Random random = new Random();
+            while (!Boolean.TRUE.equals(server.getAttribute(ToolTesterUtils.getMbeanNameInstance(), "Stopped")))
+            {
+                summ += random.nextLong();
+            }
+            System.out.println(Long.toString(summ));
         }
         catch (Exception e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

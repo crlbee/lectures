@@ -9,6 +9,7 @@ public class ToolTester
 {
     public static void main(String[] args) throws Exception
     {
+        ToolTesterUtils.registerMBean();
         final Map<Parameter, String> parameters = new HashMap<>();
         parameters.put(Parameter.STORAGE_DIRECTORY, "/tmp/javamelody");
         parameters.put(Parameter.SAMPLING_SECONDS, "1.0");
