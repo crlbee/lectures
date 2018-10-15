@@ -14,6 +14,8 @@ public class ToolTesterUtils
 
     private static final String OBJECT_NAME = "ru.naumen.lecture.tooling:type=SomeMBeanImpl";
     private static ObjectName mbeanNameInstance = null;
+    private static Object commonLock = new Object();
+    public static int DEFAULT_WORK_TIME = 2; //sec.
 
     public static void doEndlessWork()
     {
@@ -74,5 +76,10 @@ public class ToolTesterUtils
             }
         }
         return mbeanNameInstance;
+    }
+
+    public static Object getCommonLock()
+    {
+        return commonLock;
     }
 }

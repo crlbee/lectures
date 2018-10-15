@@ -27,12 +27,12 @@ class BlockingThread extends Thread
         synchronized (lock1)
         {
             System.out.println(name + " acquired lock on " + lock1);
-            ToolTesterUtils.doSomeWork(30);
+            ToolTesterUtils.doSomeWork(ToolTesterUtils.DEFAULT_WORK_TIME * 2);
             System.out.println(name + " acquiring lock on " + lock2);
             synchronized (lock2)
             {
                 System.out.println(name + " acquired lock on " + lock2);
-                ToolTesterUtils.doSomeWork(30);
+                ToolTesterUtils.doSomeWork(ToolTesterUtils.DEFAULT_WORK_TIME * 2);
             }
             System.out.println(name + " released lock on " + lock2);
         }

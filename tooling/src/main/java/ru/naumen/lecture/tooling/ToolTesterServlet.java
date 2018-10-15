@@ -38,7 +38,7 @@ public class ToolTesterServlet extends HttpServlet
         response.setStatus(HttpServletResponse.SC_OK);
 
         //FIXME: Выполнять обработку запроса под блокировкой, конечно же, не стоит. Но мы будем.
-        synchronized (this)
+        synchronized (ToolTesterUtils.getCommonLock())
         {
             if (cmd.isPresent() && canExecute(cmd.get().getTargetState()))
             {
