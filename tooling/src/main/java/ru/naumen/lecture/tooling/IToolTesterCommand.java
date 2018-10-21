@@ -4,7 +4,10 @@ public interface IToolTesterCommand
 {
     String getName();
     
-    String getCode();
+    default String getCode()
+    {
+        return this.getClass().getSimpleName();
+    }
 
     State getTargetState();
 

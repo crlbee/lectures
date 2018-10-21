@@ -1,18 +1,12 @@
 package ru.naumen.lecture.tooling;
 
-public class DeadlockCommand implements IToolTesterCommand
+public class MakeDeadlockCommand implements IToolTesterCommand
 {
 
     @Override
     public String getName()
     {
         return "Сделай Deadlock!";
-    }
-
-    @Override
-    public String getCode()
-    {
-        return "Deadlock";
     }
 
     @Override

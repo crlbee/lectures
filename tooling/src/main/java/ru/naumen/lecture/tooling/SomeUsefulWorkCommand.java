@@ -10,12 +10,6 @@ public class SomeUsefulWorkCommand implements IToolTesterCommand
     }
 
     @Override
-    public String getCode()
-    {
-        return "SomeUsefulWork";
-    }
-
-    @Override
     public State getTargetState()
     {
         return State.DO_SOME_USEFUL_WORK;

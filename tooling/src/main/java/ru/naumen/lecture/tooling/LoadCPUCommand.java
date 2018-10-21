@@ -43,12 +43,6 @@ public class LoadCPUCommand implements IToolTesterCommand
     }
 
     @Override
-    public String getCode()
-    {
-        return "LoadCPU";
-    }
-
-    @Override
     public void execute()
     {
         MBeanServer server = ManagementFactory.getPlatformMBeanServer();

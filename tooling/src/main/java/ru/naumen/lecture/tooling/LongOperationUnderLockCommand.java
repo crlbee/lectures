@@ -17,12 +17,6 @@ public class LongOperationUnderLockCommand implements IToolTesterCommand
     }
 
     @Override
-    public String getCode()
-    {
-        return "LongOperationUnderLock";
-    }
-
-    @Override
     public State getTargetState()
     {
         return State.LONG_OPERATION_UNDER_LOCK;

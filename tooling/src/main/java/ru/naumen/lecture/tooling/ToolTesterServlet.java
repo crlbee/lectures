@@ -21,9 +21,9 @@ public class ToolTesterServlet extends HttpServlet
             new SomeUsefulWorkCommand(),
             new MakeAllRightCommand(),
             new LongOperationUnderLockCommand(),
-            new DeadlockCommand(), 
+            new MakeDeadlockCommand(), 
             new LoadCPUCommand(), 
-            new EatAllHeapCommand());
+            new ConsumeAllHeapCommand());
 
     private State currentState = State.ALL_RIGHT;
 

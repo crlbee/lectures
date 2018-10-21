@@ -2,7 +2,7 @@ package ru.naumen.lecture.tooling;
 
 import java.util.ArrayList;
 
-public class EatAllHeapCommand implements IToolTesterCommand
+public class ConsumeAllHeapCommand implements IToolTesterCommand
 {
     private ArrayList<Person> persons = new ArrayList<>();
 
@@ -19,14 +19,13 @@ public class EatAllHeapCommand implements IToolTesterCommand
     }
 
     @Override
-    public String getCode()
-    {
-        return "EatAllHeap";
-    }
-
-    @Override
     public void execute()
     {
+        for (int i = 0; i < 10; i++)
+        {
+            HeapConsumtionThread t = new HeapConsumtionThread(10000);
+            t.start();
+        }
         while (true)
         {
             persons.add(Person.createSomePerson());

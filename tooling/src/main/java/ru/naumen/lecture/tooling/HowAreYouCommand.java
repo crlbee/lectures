@@ -16,12 +16,6 @@ public class HowAreYouCommand implements IToolTesterCommand
     }
 
     @Override
-    public String getCode()
-    {
-        return "HowAreYou";
-    }
-
-    @Override
     public void execute()
     {
 

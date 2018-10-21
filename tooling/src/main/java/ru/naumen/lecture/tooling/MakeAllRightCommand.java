@@ -10,12 +10,6 @@ public class MakeAllRightCommand implements IToolTesterCommand
     }
 
     @Override
-    public String getCode()
-    {
-        return "MakeAllRight";
-    }
-
-    @Override
     public State getTargetState()
     {
         return State.ALL_RIGHT;
