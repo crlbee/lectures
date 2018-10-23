@@ -15,7 +15,7 @@ public class HeapConsumtionThread extends Thread
     public void run()
     {
         ArrayList<Person> persons = new ArrayList<>();
-        while (true)
+        while (!ConsumeAllHeapCommand.STOP)
         {
             persons.add(Person.createSomePerson());
             if (persons.size() % (maxArraySize / 10) == 0)

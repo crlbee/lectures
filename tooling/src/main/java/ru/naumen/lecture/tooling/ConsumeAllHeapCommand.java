@@ -6,6 +6,8 @@ public class ConsumeAllHeapCommand implements IToolTesterCommand
 {
     private ArrayList<Person> persons = new ArrayList<>();
 
+    public static volatile boolean STOP = false;
+
     @Override
     public String getName()
     {
@@ -21,18 +23,28 @@ public class ConsumeAllHeapCommand implements IToolTesterCommand
     @Override
     public void execute()
     {
+        long startTime = System.currentTimeMillis();
         for (int i = 0; i < 10; i++)
         {
             HeapConsumtionThread t = new HeapConsumtionThread(10000);
             t.start();
         }
-        while (true)
+        try
         {
-            persons.add(Person.createSomePerson());
-            if (persons.size() % 1000 == 0)
+            while (true)
             {
-                System.out.println(persons.size());
+                persons.add(Person.createSomePerson());
+                if (persons.size() % 1000 == 0)
+                {
+                    System.out.println(persons.size());
+                }
             }
+        }
+        catch (OutOfMemoryError oome)
+        {
+            STOP = true;
+            persons = new ArrayList<>();
+            System.out.println("Total time: " + (System.currentTimeMillis() - startTime) / 1000 + " sec.");
         }
     }
 }
