@@ -8,7 +8,8 @@ public enum State
     LONG_OPERATION_UNDER_LOCK("Осуществляется длительная работа под блокировкой"),
     DEADLOCK("Похоже, все заблокировалось!"),
     HIGH_MEMORY_CONSUPTION("Мне плохо, память заканчивается!"), 
-    HIGH_CPU_LOAD("Мне плохо, процессор сильно нагружен!");
+    SINGLE_THREAD_HIGH_CPU_LOAD("Мне плохо, процессор сильно нагружен!"),
+    MULTI_THREAD_HIGH_CPU_LOAD("Мне плохо, процессор сильно нагружен!");
 
     State(String title)
     {
