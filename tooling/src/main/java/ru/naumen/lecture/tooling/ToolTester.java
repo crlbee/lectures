@@ -14,6 +14,7 @@ public class ToolTester
         parameters.put(Parameter.STORAGE_DIRECTORY, "/tmp/javamelody");
         parameters.put(Parameter.SAMPLING_SECONDS, "1.0");
         parameters.put(Parameter.MONITORING_PATH, "/m");
+        parameters.put(Parameter.MAVEN_REPOSITORIES, "/home/amokhov/.m2/repository");
         EmbeddedServer.start(8080, parameters);
     }
 }

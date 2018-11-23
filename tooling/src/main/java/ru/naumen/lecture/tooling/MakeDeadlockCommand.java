@@ -6,7 +6,7 @@ public class MakeDeadlockCommand implements IToolTesterCommand
     @Override
     public String getName()
     {
-        return "Сделай Deadlock!";
+        return "Сделай deadlock";
     }
 
     @Override

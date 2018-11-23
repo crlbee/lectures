@@ -17,12 +17,12 @@ public class ToolTesterServlet extends HttpServlet
     private static final String COMMAND_PRM_NAME = "command";
 
     private final static List<IToolTesterCommand> AVAILABLE_COMMANDS = Arrays.asList(
-            new HowAreYouCommand(),
             new SomeUsefulWorkCommand(),
+            new HowAreYouCommand(),
             new MakeAllRightCommand(),
             new LongOperationUnderLockCommand(),
-            new MakeDeadlockCommand(), 
             new LoadCPUInRequestThreadCommand(), 
+            new MakeDeadlockCommand(), 
             new ConsumeAllHeapCommand(),
             new LoadCPUInBackgroundThreadsCommand());
 
@@ -78,7 +78,7 @@ public class ToolTesterServlet extends HttpServlet
     
     private String buildButton(IToolTesterCommand c, boolean isDisabled)
     {
-        return "<button name=\"" + COMMAND_PRM_NAME + "\" value = \"" + c.getCode() + "\"" + 
+        return "<button style=\"margin:4px 2px;\" name=\"" + COMMAND_PRM_NAME + "\" value = \"" + c.getCode() + "\"" + 
                 (isDisabled ? " disabled " : "") + ">" + 
                 c.getName() + "</button>&nbsp;";
     }

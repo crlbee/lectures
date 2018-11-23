@@ -6,7 +6,7 @@ public class MakeAllRightCommand implements IToolTesterCommand
     @Override
     public String getName()
     {
-        return "Починись!";
+        return "Вернись в исходное состояние";
     }
 
     @Override
