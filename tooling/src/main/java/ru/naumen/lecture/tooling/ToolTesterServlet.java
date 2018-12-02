@@ -18,7 +18,7 @@ public class ToolTesterServlet extends HttpServlet
     private static final String COMMAND_PRM_NAME = "command";
 
     private final static List<IToolTesterCommand> AVAILABLE_COMMANDS = Arrays.asList(
-            new SomeUsefulWorkCommand(),
+            new MakeSomeUsefulWorkCommand(),
             new HowAreYouCommand(),
             new MakeAllRightCommand(),
             new LongOperationUnderLockCommand(),
@@ -41,7 +41,7 @@ public class ToolTesterServlet extends HttpServlet
 
         if (cmd.isPresent())
         {
-            ToolTester.LOG.info(String.format("Request on execution command %s received", cmd.get().getCode()));
+            ToolTester.LOG.info(String.format("Request on execution command '%s' received", cmd.get().getCode()));
         }
 
         response.setContentType("text/html;charset=utf-8");
@@ -53,12 +53,15 @@ public class ToolTesterServlet extends HttpServlet
             if (cmd.isPresent() && canExecute(cmd.get().getTargetState()))
             {
                 currentState = cmd.get().getTargetState();
-                writeState(response);
+                writeState(response, String.format("выполняется команда '%s'", cmd.get().getName()));
+                ToolTester.LOG.info(String.format("Executing command '%s'", cmd.get().getCode()));
                 cmd.get().execute();
+                writeState(response, String.format("команда '%s' выполнена", cmd.get().getName()));
+                ToolTester.LOG.info(String.format("Command '%s' executed", cmd.get().getCode()));
             }
-            else if( cmd.isPresent()) 
+            else if (cmd.isPresent())
             {
-                writeState(response);
+                writeState(response, (currentState == null ? "Не определено" : currentState.getTitle()));
             }
         }
 
@@ -92,10 +95,9 @@ public class ToolTesterServlet extends HttpServlet
                 c.getName() + "</button>&nbsp;";
     }
 
-    private void writeState(HttpServletResponse response) throws IOException
+    private void writeState(HttpServletResponse response, String message) throws IOException
     {
-        response.getWriter().println("<h1>Состояние: " + 
-                (currentState == null ? "Не определено" : currentState.getTitle()) + "</h1>");
+        response.getWriter().println("<h1>Состояние: " + message + "</h1>");
         response.getWriter().flush();
     }
 

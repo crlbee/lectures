@@ -23,20 +23,20 @@ class BlockingThread extends Thread
     public void run()
     {
         String name = Thread.currentThread().getName();
-        System.out.println(name + " acquiring lock on " + lock1);
+        ToolTester.LOG.info(name + " acquiring lock on " + lock1);
         synchronized (lock1)
         {
-            System.out.println(name + " acquired lock on " + lock1);
+            ToolTester.LOG.info(name + " acquired lock on " + lock1);
             ToolTesterUtils.doSomeWork(ToolTesterUtils.DEFAULT_WORK_TIME * 2);
-            System.out.println(name + " acquiring lock on " + lock2);
+            ToolTester.LOG.info(name + " acquiring lock on " + lock2);
             synchronized (lock2)
             {
-                System.out.println(name + " acquired lock on " + lock2);
+                ToolTester.LOG.info(name + " acquired lock on " + lock2);
                 ToolTesterUtils.doSomeWork(ToolTesterUtils.DEFAULT_WORK_TIME * 2);
             }
-            System.out.println(name + " released lock on " + lock2);
+            ToolTester.LOG.info(name + " released lock on " + lock2);
         }
-        System.out.println(name + " released lock on " + lock1);
-        System.out.println(name + " finished execution.");
+        ToolTester.LOG.info(name + " released lock on " + lock1);
+        ToolTester.LOG.info(name + " finished execution.");
     }
 }

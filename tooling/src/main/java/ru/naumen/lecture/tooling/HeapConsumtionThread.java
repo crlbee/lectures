@@ -20,7 +20,7 @@ public class HeapConsumtionThread extends Thread
             persons.add(Person.createSomePerson());
             if (persons.size() % (maxArraySize / 10) == 0)
             {
-                System.out.println(persons.size());
+                ToolTester.LOG.info(persons.size());
             }
             if (persons.size() >= maxArraySize)
             {

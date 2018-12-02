@@ -36,7 +36,7 @@ public class ConsumeAllHeapCommand implements IToolTesterCommand
                 persons.add(Person.createSomePerson());
                 if (persons.size() % 1000 == 0)
                 {
-                    System.out.println(persons.size());
+                    ToolTester.LOG.info(persons.size());
                 }
             }
         }
@@ -44,7 +44,8 @@ public class ConsumeAllHeapCommand implements IToolTesterCommand
         {
             STOP = true;
             persons = new ArrayList<>();
-            System.out.println("Total time: " + (System.currentTimeMillis() - startTime) / 1000 + " sec.");
+            ToolTester.LOG.error("OutOfMemoryError: " + oome.getMessage());
+            ToolTester.LOG.info("Total time: " + (System.currentTimeMillis() - startTime) / 1000 + " sec.");
         }
     }
 }

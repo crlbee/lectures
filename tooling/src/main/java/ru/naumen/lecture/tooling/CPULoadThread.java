@@ -42,7 +42,7 @@ public class CPULoadThread extends Thread
                     }
                 }
             }
-            System.out.println(Long.toString(summ));
+            ToolTester.LOG.info(Long.toString(summ));
         }
         catch (Exception e)
         {

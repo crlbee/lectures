@@ -1,6 +1,6 @@
 package ru.naumen.lecture.tooling;
 
-public class SomeUsefulWorkCommand implements IToolTesterCommand
+public class MakeSomeUsefulWorkCommand implements IToolTesterCommand
 {
 
     @Override
