@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+  <Properties>
+    <Property name="filename">logs/output.log</Property>
+  </Properties>
+
+  <Appenders>
+<!--
+	<Appender type="File" name="File" fileName="${filename}">
+		<Layout type="PatternLayout">
+			<Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
+		</Layout>
+	</Appender>
+-->
+
+<File name="File" fileName="${filename}">
+      <PatternLayout>
+        <Pattern>%d %p %c{1.} [%t] %m %ex%n</Pattern>
+      </PatternLayout>
+    </File>	
+  </Appenders>
+  <Loggers>
+    <Root level="INFO">
+      <AppenderRef ref="File"/>
+    </Root>
+  </Loggers>
+</Configuration>

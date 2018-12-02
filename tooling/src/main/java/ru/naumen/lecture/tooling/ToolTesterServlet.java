@@ -14,6 +14,7 @@ public class ToolTesterServlet extends HttpServlet
 {
     private static final long serialVersionUID = 579366660553979193L;
 
+    private static final String FAVICON = "favicon.ico";
     private static final String COMMAND_PRM_NAME = "command";
 
     private final static List<IToolTesterCommand> AVAILABLE_COMMANDS = Arrays.asList(
@@ -31,9 +32,17 @@ public class ToolTesterServlet extends HttpServlet
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        //FIXME: вызывается 2 раза
+        if (request.getRequestURI().endsWith(FAVICON))
+        {
+            return;
+        }
         String command = request.getParameter(COMMAND_PRM_NAME);
         Optional<IToolTesterCommand> cmd = AVAILABLE_COMMANDS.stream().filter(c -> c.getCode().equals(command)).findFirst();
+
+        if (cmd.isPresent())
+        {
+            ToolTester.LOG.info(String.format("Request on execution command %s received", cmd.get().getCode()));
+        }
 
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);

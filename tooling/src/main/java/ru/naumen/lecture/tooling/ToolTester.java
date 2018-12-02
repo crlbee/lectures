@@ -3,10 +3,15 @@ package ru.naumen.lecture.tooling;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import net.bull.javamelody.Parameter;
 
 public class ToolTester
 {
+    public static Logger LOG = LogManager.getRootLogger();
+
     public static void main(String[] args) throws Exception
     {
         ToolTesterUtils.registerMBean();
